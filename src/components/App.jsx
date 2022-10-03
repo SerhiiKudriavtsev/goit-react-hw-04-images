@@ -27,23 +27,28 @@ export default function App() {
   const [totalHits, setTotalHits] = useState('');
   const [modalImg, setModalImg] = useState('');
 
+  const handlePrePeageChange = prePage => { 
+    if (prePages === prePage) {
+      return;
+    }else
+    {
+      setPrePages(prePage);
+      setCurrentPage(1);
+      setImagesArr([]);
+    }
+  };
 
   const handleFormSubmit = (wordValue) => {
     if (wordValue === wordSearch) { 
       return
     } else
     {
-    setWordSearch(wordValue);
-    setCurrentPage(1);
-    setImagesArr([]);
+      setWordSearch(wordValue);
+      setCurrentPage(1);
+      setImagesArr([]);
     }
   }
   
-  const handlePrePeageChange = prePages => { 
-      setPrePages(prePages)
-
-  };
-
   useEffect(() => {
     if (wordSearch === '') {
       return;
@@ -62,11 +67,11 @@ export default function App() {
       }
     })();
 
-  }, [wordSearch, currentPage])
+  }, [wordSearch, currentPage, prePages] )
 
   const LargeImages = url => {
     toggleModal();
-    setModalImg({url});
+    setModalImg(url);
   };
 
   const toggleModal = () => {
